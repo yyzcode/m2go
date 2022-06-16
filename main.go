@@ -51,7 +51,9 @@ func main() {
 			},
 		},
 	}
-
+	if len(os.Args) == 1 {
+		os.Args = append(os.Args, "--help")
+	}
 	err := cliApp.Run(os.Args)
 	if err != nil {
 		log.Fatal(err)
