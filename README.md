@@ -11,6 +11,7 @@ m2go是一款根据mysql数据表信息生成对应go结构体的工具。
 * 生成的结构体名为表名大驼峰规范（不含表前缀）
 * 生成的结构体字段为表字段名的大驼峰规范
 * 生成的json标签与数据库字段名保持一致
+* 如产生同名文件，新文件会添加时间后缀，使用 -w 可以覆盖同名文件
 
 ## 安装
 
@@ -39,8 +40,8 @@ m2go -host 127.0.0.1:3306 -u user:password -db dbname -j
 
 带前缀的表名
 ~~~
-//将会匹配 prefix_user 表
-m2go -host 127.0.0.1:3306 -u user:password -db dbname -j -p prefix user
+//将会匹配 prefix_user 表，注意 prefix_ 中的下划线本身就是前缀的一部分
+m2go -host 127.0.0.1:3306 -u user:password -db dbname -j -p prefix_ user
 ~~~
 
 生成结果
