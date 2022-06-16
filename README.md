@@ -23,24 +23,24 @@ go install github.com/yyzcoder/m2go
 生成所有表结构体
 
 ~~~
-m2go -m 127.0.0.1:3306 -u user:password -db dbname
+m2go -host 127.0.0.1:3306 -u user:password -db dbname
 ~~~
 
 生成指定表结构体
 
 ~~~
-m2go -m 127.0.0.1:3306 -u user:password -db dbname table1 table2
+m2go -host 127.0.0.1:3306 -u user:password -db dbname table1 table2
 ~~~
 
 生成带json标签的结构体
 ~~~
-m2go -m 127.0.0.1:3306 -u user:password -db dbname -j
+m2go -host 127.0.0.1:3306 -u user:password -db dbname -j
 ~~~
 
 带前缀的表名
 ~~~
 //将会匹配 prefix_user 表
-m2go -m 127.0.0.1:3306 -u user:password -db dbname -j -p prefix user
+m2go -host 127.0.0.1:3306 -u user:password -db dbname -j -p prefix user
 ~~~
 
 生成结果
