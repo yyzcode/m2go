@@ -1,11 +1,10 @@
 m2go
 ===============
 
-## 简介
 m2go是一款根据mysql数据表信息生成对应go结构体的工具。
 
 ## 约定
-根据日常使用习惯，对生成规则做如下规范
+根据日常使用习惯，对生成规则做如下约定
 * 文件生成的位置为执行命令的当前目录
 * 生成的文件名为 表名.go（不含表前缀）
 * 生成的结构体名为表名大驼峰规范（不含表前缀）
@@ -38,9 +37,8 @@ m2go -host 127.0.0.1:3306 -u user:password -db dbname table1 table2
 m2go -host 127.0.0.1:3306 -u user:password -db dbname -j
 ~~~
 
-带前缀的表名
+带前缀的表名，示例中将会匹配 prefix_user 表，注意 prefix_ 中的下划线本身就是前缀的一部分
 ~~~
-//将会匹配 prefix_user 表，注意 prefix_ 中的下划线本身就是前缀的一部分
 m2go -host 127.0.0.1:3306 -u user:password -db dbname -j -p prefix_ user
 ~~~
 
