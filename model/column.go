@@ -3,13 +3,55 @@ package model
 import (
 	"fmt"
 	"github.com/yyzcoder/m2go/util"
+	"strings"
 )
 
 type Column struct {
-	Name     string `gorm:"column:COLUMN_NAME"`
-	DataType string `gorm:"column:DATA_TYPE"`
-	Comment  string `gorm:"column:COLUMN_COMMENT"`
-	Default  string `gorm:"column:COLUMN_DEFAULT"`
+	Name       string `gorm:"column:COLUMN_NAME"`
+	DataType   string `gorm:"column:DATA_TYPE"`
+	Comment    string `gorm:"column:COLUMN_COMMENT"`
+	Default    string `gorm:"column:COLUMN_DEFAULT"`
+	ColumnType string `gorm:"column:COLUMN_TYPE"`
+}
+
+//mysql有符号与go对应
+var mt2gt = map[string]string{
+	"tinyint":    "int8",
+	"smallint":   "int16",
+	"int":        "int",
+	"integer":    "int",
+	"mediumint":  "int",
+	"bigint":     "int64",
+	"decimal":    "float64",
+	"float":      "float64",
+	"char":       "string",
+	"varchar":    "string",
+	"text":       "string",
+	"mediumtext": "string",
+	"longtext":   "string",
+	"date":       "*time.Time",
+	"datetime":   "*time.Time",
+	"timestamp":  "*time.Time",
+}
+
+//mysql无符号与go类型对应
+var umt2gt = map[string]string{
+	"tinyint":    "uint8",
+	"smallint":   "uint16",
+	"int":        "uint",
+	"integer":    "uint",
+	"mediumint":  "uint",
+	"bigint":     "uint64",
+	"decimal":    "float64",
+	"float":      "float64",
+	"char":       "string",
+	"varchar":    "string",
+	"text":       "string",
+	"mediumtext": "string",
+	"longtext":   "string",
+	"date":       "*time.Time",
+	"datetime":   "*time.Time",
+	"timestamp":  "*time.Time",
 }
 
 func (c Column) fieldName() string {
@@ -28,54 +70,14 @@ func (c Column) fieldJson() string {
 }
 
 func (c Column) FieldType() (s string) {
-	switch c.DataType {
-	case "tinyint":
-		s = "int8"
-	case "smallint":
-		s = "int16"
-	case "int":
-		s = "int"
-	case "integer":
-		s = "int"
-	case "mediumint":
-		s = "int"
-	case "bigint":
-		s = "int64"
-	case "decimal":
-		s = "float64"
-	case "float":
-		s = "float64"
-	case "char":
-		s = "string"
-	case "varchar":
-		s = "string"
-	case "text":
-		s = "string"
-	case "mediumtext":
-		s = "string"
-	case "longtext":
-		s = "string"
-	case "binary":
-		s = "[]byte"
-	case "blob":
-		s = "[]byte"
-	case "tinyblob":
-		s = "[]byte"
-	case "mediumblob":
-		s = "[]byte"
-	case "longblob":
-		s = "[]byte"
-	case "date":
-		//考虑到时间类型的零值无法写入数据库，所以用指针
-		s = "*time.Time"
-	case "datetime":
-		s = "*time.Time"
-	case "timestamp":
-		s = "*time.Time"
-	default:
-		s = "any"
+	m := mt2gt
+	if strings.Contains(c.ColumnType, "unsigned") {
+		m = umt2gt
 	}
-	return s
+	if v, ok := m[c.DataType]; ok {
+		return v
+	}
+	return "any"
 }
 
 func (Column) TableName() string {
