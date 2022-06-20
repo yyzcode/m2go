@@ -12,6 +12,7 @@ type Column struct {
 	Comment    string  `gorm:"column:COLUMN_COMMENT"`
 	Default    *string `gorm:"column:COLUMN_DEFAULT"`
 	ColumnType string  `gorm:"column:COLUMN_TYPE"`
+	IsNullable string  `gorm:"column:IS_NULLABLE"`
 }
 
 //mysql有符号与go对应
@@ -29,9 +30,9 @@ var mt2gt = map[string]string{
 	"text":       "string",
 	"mediumtext": "string",
 	"longtext":   "string",
-	"date":       "*time.Time",
-	"datetime":   "*time.Time",
-	"timestamp":  "*time.Time",
+	"date":       "time.Time",
+	"datetime":   "time.Time",
+	"timestamp":  "time.Time",
 }
 
 //mysql无符号与go类型对应
@@ -49,9 +50,9 @@ var umt2gt = map[string]string{
 	"text":       "string",
 	"mediumtext": "string",
 	"longtext":   "string",
-	"date":       "*time.Time",
-	"datetime":   "*time.Time",
-	"timestamp":  "*time.Time",
+	"date":       "time.Time",
+	"datetime":   "time.Time",
+	"timestamp":  "time.Time",
 }
 
 func (c Column) fieldName() string {
@@ -82,6 +83,9 @@ func (c Column) FieldType() (s string) {
 		m = umt2gt
 	}
 	if v, ok := m[c.DataType]; ok {
+		if c.IsNullable == "YES" {
+			return "*" + v
+		}
 		return v
 	}
 	return "any"
