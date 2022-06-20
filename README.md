@@ -50,7 +50,7 @@ package test
 type Province struct {
 	Id      int    `json:"id"`
 	Myid    int    `json:"myid"`     //自定义ID
-	AllName string `json:"all_name"` //省份全程
+	AllName string `json:"all_name"` //省份全程 //default:北京市
 	Name    string `json:"name"`     //名称缩写
 	Pycode  string `json:"pycode"`   //拼音码
 	Pinyin  string `json:"pinyin"`   //拼音
@@ -65,9 +65,4 @@ type Province struct {
 * -p table_prefix 数据库前缀
 * -w 如果生成同名文件则覆盖已有文件
 * -j 生成结构体字段的json标签
-
-## 文件格式化
-推荐文件生成完毕后使用go自带的gofmt对文件进行格式化
-~~~
-gofmt -w ./
-~~~
+* -dv 生成结构体字段在数据库的默认值备注
