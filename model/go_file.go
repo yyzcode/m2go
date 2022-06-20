@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/yyzcoder/m2go/util"
 	"os"
+	"os/exec"
 	"strconv"
 	"strings"
 	"time"
@@ -16,12 +17,13 @@ type GoFile struct {
 	Comment    string
 	StructName string
 	Fields     []Column
-	JsonFlag   bool //是否生成json标签
+	Option     FOption
 }
 
 type FOption struct {
-	JsonFlag bool
-	Prefix   string
+	JsonFlag    bool
+	DefaultFlag bool
+	Prefix      string
 }
 
 // Output 生成文件
@@ -38,6 +40,12 @@ func (g *GoFile) Output(overwrite bool) error {
 	if err != nil {
 		return err
 	}
+	defer func() {
+		cmd := exec.Command("gofmt", "-w", g.Name)
+		if err = cmd.Run(); err != nil {
+			fmt.Println("warning: format code style fail ", err)
+		}
+	}()
 	defer file.Close()
 
 	//写入包名
@@ -61,11 +69,16 @@ func (g *GoFile) Output(overwrite bool) error {
 		file.Write([]byte(" "))
 		file.Write([]byte(field.FieldType()))
 		file.Write([]byte(" "))
-		if g.JsonFlag {
+		if g.Option.JsonFlag {
 			file.Write([]byte(field.fieldJson()))
 			file.Write([]byte(" "))
 		}
 		file.Write([]byte(field.FieldNote()))
+		file.Write([]byte(" "))
+		if g.Option.DefaultFlag {
+			file.Write([]byte(field.FieldDefault()))
+			file.Write([]byte(" "))
+		}
 		file.Write([]byte("\n"))
 	}
 	file.Write([]byte("}"))
@@ -75,7 +88,7 @@ func (g *GoFile) Output(overwrite bool) error {
 // BuildGoFile 将table信息转化为更适合用来描述go文件构成的结构体
 func BuildGoFile(table Table, option FOption) GoFile {
 	file := GoFile{
-		JsonFlag: option.JsonFlag,
+		Option: option,
 	}
 	//确定go文件名
 	file.Name = fmt.Sprintf("%s.go", util.TrimPrefix(table.Name, option.Prefix))

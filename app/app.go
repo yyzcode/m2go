@@ -9,11 +9,13 @@ import (
 
 var overwrite bool
 var jsonFlag bool
+var defaultValue bool
 var prefix string
 
 func Run(ctx *cli.Context) error {
 	//获取输入信息
 	overwrite = ctx.Bool("overwrite")
+	defaultValue = ctx.Bool("default_value")
 	jsonFlag = ctx.Bool("json")
 	prefix = ctx.String("prefix")
 	database := ctx.String("database")
@@ -63,8 +65,9 @@ func Run(ctx *cli.Context) error {
 func genStruct(tables []model.Table) error {
 	for _, table := range tables {
 		file := model.BuildGoFile(table, model.FOption{
-			Prefix:   prefix,
-			JsonFlag: jsonFlag,
+			Prefix:      prefix,
+			JsonFlag:    jsonFlag,
+			DefaultFlag: defaultValue,
 		})
 		err := file.Output(overwrite)
 		if err != nil {

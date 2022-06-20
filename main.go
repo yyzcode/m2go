@@ -49,6 +49,12 @@ func main() {
 				Value:   false,
 				Usage:   "whether generate structs' json tag",
 			},
+			&cli.BoolFlag{
+				Name:    "default_value",
+				Aliases: []string{"dv"},
+				Value:   false,
+				Usage:   "whether generate field default value note",
+			},
 		},
 	}
 	if len(os.Args) == 1 {

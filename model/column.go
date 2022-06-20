@@ -7,11 +7,11 @@ import (
 )
 
 type Column struct {
-	Name       string `gorm:"column:COLUMN_NAME"`
-	DataType   string `gorm:"column:DATA_TYPE"`
-	Comment    string `gorm:"column:COLUMN_COMMENT"`
-	Default    string `gorm:"column:COLUMN_DEFAULT"`
-	ColumnType string `gorm:"column:COLUMN_TYPE"`
+	Name       string  `gorm:"column:COLUMN_NAME"`
+	DataType   string  `gorm:"column:DATA_TYPE"`
+	Comment    string  `gorm:"column:COLUMN_COMMENT"`
+	Default    *string `gorm:"column:COLUMN_DEFAULT"`
+	ColumnType string  `gorm:"column:COLUMN_TYPE"`
 }
 
 //mysql有符号与go对应
@@ -61,6 +61,13 @@ func (c Column) fieldName() string {
 func (c Column) FieldNote() (s string) {
 	if c.Comment != "" {
 		s = fmt.Sprintf("//%s", c.Comment)
+	}
+	return s
+}
+
+func (c Column) FieldDefault() (s string) {
+	if c.Default != nil && *c.Default != "" {
+		s = fmt.Sprintf("//default:%s", *c.Default)
 	}
 	return s
 }
