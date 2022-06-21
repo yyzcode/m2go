@@ -1,6 +1,6 @@
 package model
 
-import "github.com/yyzcoder/m2go/util"
+import "github.com/yyzcode/m2go/util"
 
 type Table struct {
 	Name    string   `gorm:"column:TABLE_NAME"`

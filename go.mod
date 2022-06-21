@@ -1,4 +1,4 @@
-module github.com/yyzcoder/m2go
+module github.com/yyzcode/m2go
 
 go 1.18
 

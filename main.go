@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/urfave/cli/v2"
-	"github.com/yyzcoder/m2go/app"
+	"github.com/yyzcode/m2go/app"
 	"log"
 	"os"
 )

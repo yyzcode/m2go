@@ -2,7 +2,7 @@ package model
 
 import (
 	"fmt"
-	"github.com/yyzcoder/m2go/util"
+	"github.com/yyzcode/m2go/util"
 	"os"
 	"os/exec"
 	"strconv"

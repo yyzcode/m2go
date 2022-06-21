@@ -15,7 +15,7 @@ m2go是一款根据mysql数据表信息生成对应go结构体的工具。
 ## 安装
 
 ~~~
-go install github.com/yyzcoder/m2go
+go install github.com/yyzcode/m2go
 ~~~
 
 ## 快速使用

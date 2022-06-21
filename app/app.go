@@ -3,8 +3,8 @@ package app
 import (
 	"fmt"
 	"github.com/urfave/cli/v2"
-	"github.com/yyzcoder/m2go/db"
-	"github.com/yyzcoder/m2go/model"
+	"github.com/yyzcode/m2go/db"
+	"github.com/yyzcode/m2go/model"
 )
 
 var overwrite bool
