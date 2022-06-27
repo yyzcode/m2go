@@ -16,7 +16,7 @@ func main() {
 		Flags: []cli.Flag{
 			&cli.BoolFlag{
 				Name:    "overwrite",
-				Aliases: []string{"w"},
+				Aliases: []string{"o"},
 				Value:   false,
 				Usage:   "overwrite exist files",
 			},
