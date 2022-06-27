@@ -42,6 +42,18 @@ m2go -host 127.0.0.1:3306 -u user:password -db dbname -j
 m2go -host 127.0.0.1:3306 -u user:password -db dbname -j -p prefix_ user
 ~~~
 
+
+## 参数解释
+
+* -host 127.0.0.1:3306 数据库地址与端口
+* -u root:123456 数据库用户名与密码
+* -db dbname 数据库名
+* -p table_prefix 数据库前缀
+* -w 如果生成同名文件则覆盖已有文件
+* -j 生成结构体字段的json标签
+* -dv 生成结构体字段在数据库的默认值备注
+
+
 生成结果
 ```go
 package test
@@ -56,13 +68,3 @@ type Province struct {
 	Pinyin  string `json:"pinyin"`   //拼音
 }
 ```
-
-## 参数
-
-* -host 127.0.0.1:3306 数据库地址与端口
-* -u root:123456 数据库用户名与密码
-* -db dbname 数据库名
-* -p table_prefix 数据库前缀
-* -w 如果生成同名文件则覆盖已有文件
-* -j 生成结构体字段的json标签
-* -dv 生成结构体字段在数据库的默认值备注
