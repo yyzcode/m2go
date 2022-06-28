@@ -55,6 +55,11 @@ func main() {
 				Value:   false,
 				Usage:   "whether generate field default value note",
 			},
+			&cli.StringFlag{
+				Name:    "web",
+				Aliases: []string{"w"},
+				Usage:   "start web server address",
+			},
 		},
 	}
 	if len(os.Args) == 1 {
