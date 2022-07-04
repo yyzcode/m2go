@@ -55,10 +55,16 @@ func main() {
 				Value:   false,
 				Usage:   "whether generate field default value note",
 			},
+			&cli.BoolFlag{
+				Name:    "server",
+				Aliases: []string{"s"},
+				Value:   false,
+				Usage:   "whether start web server",
+			},
 			&cli.StringFlag{
-				Name:    "web",
-				Aliases: []string{"w"},
-				Usage:   "start web server address",
+				Name:  "addr",
+				Value: "0.0.0.0:44973",
+				Usage: "start web server address",
 			},
 		},
 	}
