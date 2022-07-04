@@ -11,7 +11,7 @@ var Db *gorm.DB
 
 func Run(ctx *cli.Context) error {
 
-	if ctx.String("web") == "" {
+	if !ctx.Bool("s") {
 		return command.Run(command.CmdOption{
 			Overwrite:    ctx.Bool("overwrite"),
 			JsonFlag:     ctx.Bool("json"),
@@ -25,7 +25,7 @@ func Run(ctx *cli.Context) error {
 	}
 
 	return web.Run(web.WebOption{
-		Addr:     ctx.String("web"),
+		Addr:     ctx.String("addr"),
 		DbHost:   ctx.String("mysqlhost"),
 		DbUser:   ctx.String("user"),
 		Database: ctx.String("database"),

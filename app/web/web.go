@@ -1,7 +1,9 @@
 package web
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/yyzcode/m2go/app/web/view"
 )
 
 type WebOption struct {
@@ -15,8 +17,14 @@ func Run(option WebOption) error {
 	r := gin.Default()
 
 	r.GET("/model", func(ctx *gin.Context) {
-		ctx.Header("content-type", "text/html")
-		ctx.String(200, html)
+
+		r, err := view.Build("/model", gin.H{"title": "m2go - 模型生成器"})
+		if err != nil {
+			fmt.Println("render html err:", err)
+		}
+		if err = r.Render(ctx.Writer); err != nil {
+			fmt.Println("render html err:", err)
+		}
 	})
 
 	err := r.Run(option.Addr)
@@ -25,16 +33,3 @@ func Run(option WebOption) error {
 	}
 	return nil
 }
-
-var html = `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>m2go - 模型生成器</title>
-</head>
-<body>
-功能开发中，敬请期待
-</body>
-</html>
-`
