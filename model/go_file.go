@@ -107,7 +107,7 @@ func BuildGoFile(table Table, option FOption) GoFile {
 
 	flag := false //是否有time包引入
 	for _, f := range file.Fields {
-		if f.FieldType() == "*time.Time" {
+		if f.FieldType() == "*time.Time" || f.FieldType() == "time.Time" {
 			flag = true
 		}
 	}
