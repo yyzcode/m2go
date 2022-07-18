@@ -5,10 +5,15 @@ const model = `
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>m2go - 模型生成器</title>
+    <title>{{.title}}</title>
+	<link rel="stylesheet" href="/static/css/reset.css">
 </head>
 <body>
-{{.title}}功能开发中，敬请期待
+{{range $_,$v:=.tables}}
+<p>
+{{$v.Name}}
+</p>
+{{end}}
 </body>
 </html>
 `
