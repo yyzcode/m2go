@@ -30,7 +30,7 @@ var mt2gt = map[string]string{
 	"text":       "string",
 	"mediumtext": "string",
 	"longtext":   "string",
-	"date":       "time.Time",
+	"date":       "string",
 	"datetime":   "time.Time",
 	"timestamp":  "time.Time",
 }
@@ -50,7 +50,7 @@ var umt2gt = map[string]string{
 	"text":       "string",
 	"mediumtext": "string",
 	"longtext":   "string",
-	"date":       "time.Time",
+	"date":       "string",
 	"datetime":   "time.Time",
 	"timestamp":  "time.Time",
 }
